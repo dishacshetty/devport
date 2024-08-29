@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/disha/AppData/Local/Temp/aaf23944-f376-4609-b868-7fe27828d4ca_hashing.zip.4ca/hashing",
+      "program": "c:/Users/disha/AppData/Local/Temp/aaf23944-f376-4609-b868-7fe27828d4ca_hashing.zip.4ca/hashing/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
