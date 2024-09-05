@@ -21,15 +21,14 @@ def loginUser(request):
         try:
             user = User.objects.get(username=username)
         except:
-            messages.error(request,'Username does not exist')
+            pass
 
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
             return redirect(request.GET['next'] if 'next' in request.GET else 'account')
-        else:
-            messages.error(request,'Username OR password is incorrect')
+        
 
     return render(request, 'users/login_register.html')
 
@@ -37,7 +36,6 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    messages.info(request,'User was logged out')
     return redirect('login')
 
 
@@ -53,11 +51,9 @@ def registerUser(request):
             user.username = user.username.lower() 
             user.save()
 
-            messages.success(request,'User account was created!')
             login(request, user)
             return redirect('edit-account')
-        else:
-            messages.error(request,'An error has occurred during registration')
+        
 
     
     context = {'page':page, 'form':form}
@@ -118,7 +114,6 @@ def createSkill(request):
             skill = form.save(commit=False)
             skill.owner = profile 
             skill.save()
-            messages.success(request,'Skill was added successfully!')
             return redirect('account')
         
     context = {'form':form}
@@ -135,7 +130,6 @@ def updateSkill(request, pk):
         form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
-            messages.success(request,'Skill was updated!')
             return redirect('account')
         
     context = {'form':form}
@@ -148,7 +142,6 @@ def deleteSkill(request, pk):
     skill = profile.skill_set.get(id = pk)
     if request.method=='POST':
         skill.delete()
-        messages.success(request,'Skill was deleted!')
         return redirect('account')
     
     context = {'object':skill}
