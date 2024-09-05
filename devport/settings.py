@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'projects.apps.ProjectsConfig',
     'users.apps.UsersConfig',
     'rest_framework',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -152,3 +153,27 @@ STATIC_ROOT = 'staticfiles'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AWS_ACCESS_KEY_ID = 'AKIAZ3MGM3ULICEWA75J'
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'devport-biz'
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
+
+
+STORAGES = {
+
+    # Media file (image) management   
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+    
+    # CSS and JS file management
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
