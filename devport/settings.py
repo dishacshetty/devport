@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,6 +28,13 @@ SECRET_KEY = 'django-insecure-zr-=ed94k&^3z51oc9+a&@hn(4oyjvxe&y4h6u)pfj&(^xmsby
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+
+
+load_dotenv()  # Load environment variables from .env file
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 
 # Application definition
@@ -154,14 +163,21 @@ STATIC_ROOT = 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-AWS_ACCESS_KEY_ID = 'AKIAZ3MGM3ULICEWA75J'
-AWS_SECRET_ACCESS_KEY = '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'
-
 AWS_STORAGE_BUCKET_NAME = 'devport-biz'
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 AWS_S3_FILE_OVERWRITE = False
 
+STORAGES = {
 
+    # Media file (image) management   
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+    
+    # CSS and JS file management
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
