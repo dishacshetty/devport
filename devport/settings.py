@@ -22,20 +22,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zr-=ed94k&^3z51oc9+a&@hn(4oyjvxe&y4h6u)pfj&(^xmsby'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 
 load_dotenv()  # Load environment variables from .env file
 
+SECRET_KEY = os.getenv('SECRET_KEY')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 # Application definition
 
@@ -94,6 +94,7 @@ WSGI_APPLICATION = 'devport.wsgi.application'
 #    }
 ##}
 
+'''
 DATABASES = {
     'default' : {
         'ENGINE' : 'django.db.backends.postgresql_psycopg2',
@@ -103,6 +104,13 @@ DATABASES = {
         'HOST' : 'localhost',
         'PORT' : '5432',
     }
+}
+'''
+
+import dj_database_url
+
+DATABASES = {
+    'default' : dj_database_url.parse(DATABASE_URL)
 }
 
 # Password validation
